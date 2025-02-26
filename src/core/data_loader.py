@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import Dataset, DataLoader
-from core.config import Configs
+from configs.configs import Configs
 
 
 class TitanicDataset(Dataset):

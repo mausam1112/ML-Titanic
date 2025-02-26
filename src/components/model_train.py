@@ -2,7 +2,7 @@ import logging
 import pandas as pd
 import torch
 from core.model_dev import LogisticRegressionModel, RandomForestModel, TitanicNNModel
-from core.config import Configs
+from configs.configs import Configs
 from sklearn.model_selection import train_test_split
 
 

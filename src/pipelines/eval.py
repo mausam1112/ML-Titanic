@@ -3,7 +3,7 @@ from components.ingest_data import ingest_data
 from components.preprocess import preprocess_data
 from components.model_eval import evaluate_model
 from core.model_loader import load_model
-from core.config import Configs
+from configs.configs import Configs
 
 
 def eval_pipeline(data_filepath: str, model_version: str | int = None):  # type: ignore

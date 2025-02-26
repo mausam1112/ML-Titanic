@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 
 from abc import ABC, abstractmethod
-from core.config import Configs
+from configs.configs import Configs
 from core.data_loader import get_dataloaders
 from models.model_titanic import TitanicClassifier
 from sklearn.linear_model import LogisticRegression

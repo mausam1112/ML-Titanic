@@ -1,7 +1,7 @@
 from components.ingest_data import ingest_data
 from components.preprocess import preprocess_data
 from components.model_train import train_model
-from core.config import Configs
+from configs.configs import Configs
 from core.utils import save_model
 
 

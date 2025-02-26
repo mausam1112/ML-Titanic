@@ -1,6 +1,6 @@
 import logging
 import torch
-from core.config import Configs
+from configs.configs import Configs
 from core.model_eval import AccuracyEvaluator, F1Evaluator
 
 

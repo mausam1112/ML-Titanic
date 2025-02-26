@@ -1,5 +1,5 @@
 import logging
-from constants.constants import DATA_PATH
+from configs.constants import DATA_PATH
 from pipelines.eval import eval_pipeline
 
 
