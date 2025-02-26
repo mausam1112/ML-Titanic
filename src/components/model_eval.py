@@ -1,7 +1,12 @@
 import logging
 import torch
 from configs.configs import Configs
-from core.model_eval import AccuracyEvaluator, F1Evaluator
+from core.model_eval import (
+    AccuracyEvaluator,
+    F1Evaluator,
+    PrecisionEvaluator,
+    RecallEvaluator,
+)
 
 
 def evaluate_model(model, X_test, y_test):
@@ -23,7 +28,9 @@ def evaluate_model(model, X_test, y_test):
 
         accuracy = AccuracyEvaluator().evaluate(y_test, y_pred)
         f1 = F1Evaluator().evaluate(y_test, y_pred)
-        return accuracy, f1
+        precision = PrecisionEvaluator().evaluate(y_test, y_pred)
+        recall = RecallEvaluator().evaluate(y_test, y_pred)
+        return accuracy, f1, precision, recall
     except Exception as e:
         logging.error(f"Error calculating scores.. {e}")
         raise e

@@ -16,5 +16,5 @@ def eval_pipeline(data_filepath: str, model_version: str | int = None):  # type:
     _, X_test, _, y_test = preprocess_data(df)
     model = load_model(Configs.model_name, model_version)
 
-    acc, f1 = evaluate_model(model, X_test, y_test)
-    logging.info(f"Acc: {acc:.2f}, F1: {f1:.2f}")
+    acc, f1, precision, recall = evaluate_model(model, X_test, y_test)
+    logging.info(f"Acc: {acc:.2f}, F1: {f1:.2f}, {precision:.2f}, F1: {recall:.2f}")
