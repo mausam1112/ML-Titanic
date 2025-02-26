@@ -74,6 +74,10 @@ class DataTransformationStrategy(DataStrategy):
         nominal_features = ["Pclass", "Sex", "Deck", "Embarked"]
         data = pd.get_dummies(data, columns=nominal_features, drop_first=True)
 
+        # boolean dtype to int
+        for feature in data.select_dtypes("bool").columns:
+            data[feature] = data[feature].astype("int")
+
         return data
 
 
