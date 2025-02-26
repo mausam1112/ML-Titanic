@@ -9,7 +9,7 @@ def save_model(model, name: str, base_dir="../saved_models"):
 
     if name == "NN":
         version = model_version(directory, ext=".pth")
-        model_path = os.path.join(directory, f"v{version}.pth")
+        model_path = os.path.join(directory, f"v{version + 1}.pth")
         torch.save(model, model_path)
     else:
         version = model_version(directory)
@@ -23,3 +23,8 @@ def model_version(directory: str, ext: str = ".joblib"):
         return max([int(m[1:].removesuffix(ext)) for m in models])
     else:
         return 0
+
+
+def file_exists(path):
+    if not os.path.exists(path):
+        raise FileNotFoundError(f"Model file is not present at {path}")
