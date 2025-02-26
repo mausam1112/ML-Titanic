@@ -1,6 +1,4 @@
 import logging
-import numpy as np
-import pandas as pd
 import torch
 from core.config import Configs
 from core.model_eval import AccuracyEvaluator, F1Evaluator
