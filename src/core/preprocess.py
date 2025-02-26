@@ -82,6 +82,7 @@ class FeatureDroppStrategy(DataStrategy):
         drop_features = [
             "PassengerId",
             "Name",
+            "Cabin",
             "SibSp",
             "Parch",
             "Ticket",
