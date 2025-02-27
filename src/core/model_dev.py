@@ -1,4 +1,5 @@
 import logging
+import mlflow
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -58,6 +59,11 @@ class LogisticRegressionModel(Model):
             logging.info(f"Params: {grid_search.best_estimator_.get_params()}")
             logging.info(f"n_features_in_: {grid_search.feature_names_in_}")
 
+            mlflow.set_tag("Model", "LogisticRegression")
+            # mlflow.log_params(grid_search.best_estimator_.get_params())
+            mlflow.log_params(grid_search.best_params_)
+            mlflow.log_metric("best_score", grid_search.best_score_)
+
             return grid_search.best_estimator_
         except Exception as e:
             logging.error(f"Error in training logistic model with error {e}")
@@ -85,6 +91,10 @@ class RandomForestModel(Model):
             logging.info(f"Best Score: {grid_search.best_score_}")
             logging.info(f"Params: {grid_search.best_estimator_.get_params()}")
             logging.info(f"n_features_in_: {grid_search.feature_names_in_}")
+
+            mlflow.set_tag("Model", "RandomForest")
+            mlflow.log_params(grid_search.best_params_)
+            mlflow.log_metric("best_score", grid_search.best_score_)
 
             return grid_search.best_estimator_
         except Exception as e:
@@ -116,6 +126,9 @@ class TitanicNNModel(Model):
             # Early Stopping Parameters
             patience = 10  # Number of epochs to wait for improvement
             best_val_loss = float("inf")
+            corresponding_train_loss = float("inf")
+            corresponding_val_acc = 0
+            corresponding_train_acc = 0
             counter = 0
             best_model = None
 
@@ -185,6 +198,10 @@ class TitanicNNModel(Model):
                 # Early Stopping Check
                 if avg_val_loss < best_val_loss:
                     best_val_loss = avg_val_loss
+                    corresponding_train_loss = avg_train_loss
+                    corresponding_train_acc = train_accuracy
+                    corresponding_val_acc = val_accuracy
+                    best_epoch = epoch + 1
                     counter = 0  # Reset patience counter
                     best_model = model_nn
                 else:
@@ -192,6 +209,25 @@ class TitanicNNModel(Model):
                     if counter >= patience:
                         logging.info("Early stopping triggered. Stopping training.")
                         break
+
+            mlflow.log_params(
+                {
+                    "patience": patience,
+                    "max_epochs": Configs.epochs,
+                    "batch_size": Configs.batch_size,
+                    "best_epoch": best_epoch,
+                    "final_epoch": epoch + 1,
+                }
+            )
+
+            mlflow.log_metrics(
+                {
+                    "train_accuracy": corresponding_train_acc,
+                    "val_accuracy": corresponding_val_acc,
+                    "train_loss": corresponding_train_loss,
+                    "val_loss": best_val_loss,
+                }
+            )
             return best_model if best_model else model_nn, Configs.model_name
         except Exception as e:
             logging.error(f"Error in training random forest model with error {e}")

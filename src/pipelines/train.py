@@ -24,3 +24,6 @@ def train_pipeline(data_filepath: str):
 
     acc, f1, precision, recall = evaluate_model(model, X_test, y_test)
     logging.info(f"Acc: {acc:.2f}, F1: {f1:.2f}, {precision:.2f}, F1: {recall:.2f}")
+    mlflow.log_metrics(
+        {"accuracy": acc, "f1-score": f1, "precision": precision, "recall": recall}  # type: ignore
+    )
