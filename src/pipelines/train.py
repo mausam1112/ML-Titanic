@@ -1,10 +1,14 @@
 import logging
+import mlflow
 from components.ingest_data import ingest_data
 from components.preprocess import preprocess_data
 from components.model_eval import evaluate_model
 from components.model_train import train_model
 from configs.configs import Configs
 from core.utils import save_model
+
+
+mlflow.set_tracking_uri(uri="http://127.0.0.1:8080")
 
 
 def train_pipeline(data_filepath: str):
