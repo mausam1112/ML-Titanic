@@ -38,7 +38,17 @@ pip3 install -r requirements.txt
 - Note: Only one of the `model_name` class variable must be uncommented.
 
 
-### 5. **Train the model**
+### 6 **Change Active Directory**
+```bash
+cd src
+```
+
+### 7. **Start Local MLFlow server**
+```bash
+mlflow server --host 127.0.0.1 --port 8080
+```
+
+### 8. **Train the model**
 ```bash
 python run_train.py
 ```
@@ -49,12 +59,12 @@ python3 run_train.py
 Trained model are automatically saved under directory `saved_models/{Name}/v{version number}.{extension}`
 
 
-### 5. **Evaluation**
-- **Model Selection**
+### 9. **Evaluation**
+- 9.1 **Model Selection**
   - By default, the model version with the highest numeric suffix value will be choosen.
   - Distinct model version can be provided in `run_eval.py` file
   
-- **Run Evaluation**
+- 9.2 **Run Evaluation**
 ```bash
 python run_eval.py
 ```
@@ -62,5 +72,9 @@ Or
 ```bash
 python3 run_eval.py
 ```
+
+### 10. **Vizualization**
+- Open browser and type `127.0.0.1:8080` in address bar.
+- Click `Enter` to open the MLFlow UI.
 
 
